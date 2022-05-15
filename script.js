@@ -47,6 +47,8 @@ const controls = {
         if (page > state.totalPages) {
             state.page = state.totalPages;
         }
+
+        list.update();
     },
     createListeners() {
         if (html.get(".first-numb")) {
@@ -78,6 +80,12 @@ const controls = {
         }
     },
 };
+
+function handleChangePagination(plength) {
+    createPagination(totalPages, plength);
+    controls.goTo(plength);
+    list.update();
+}
 
 /* ========================== criação dos botões de navegação ===================== */
 
@@ -134,7 +142,8 @@ function createPagination(totalPages, page) {
             // senão deixa vazio para a variável ativa
             active = "";
         }
-        liTag += `<li class="numb ${active}" onclick="createPagination(totalPages, ${plength})"><span>${plength}</span></li>`;
+        // liTag += `<li class="numb ${active}" onclick="createPagination(totalPages, ${plength})"><span>${plength}</span></li>`;
+        liTag += `<li class="numb ${active}" onclick="miranha(${plength})"><span>${plength}</span></li>`;
     }
 
     if (page < totalPages - 1) {
